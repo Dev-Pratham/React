@@ -7,9 +7,17 @@ import List from "./components/ListGroup";
 function App() {
   const items = ["Engineer", "Doctor", "Scientist", "Dietesian"];
 
+  const handleSelectedItem = (item: string) => {
+    console.log(item);
+  };
+
   return (
     <div>
-      <List items={items} heading="Cities" />
+      <List
+        items={items}
+        heading="Cities"
+        onSelectedItem={handleSelectedItem}
+      />
     </div>
   );
 }
