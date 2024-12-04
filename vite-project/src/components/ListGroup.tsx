@@ -1,10 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
-import { MouseEvent } from "react";
+// import { MouseEvent } from "react";
 
 function ListGroup() {
   let items = ["Engineer", "Doctor", "Scientist", "Dietesian"];
 
+  // let selectedIndex = 0;
+
+  //use state is a hook in
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   // items = [];
 
   // const message = items.length === 0 ? <h1>No list Found </h1> : null;
@@ -15,19 +19,19 @@ function ListGroup() {
   };
 
   //can also create handle click
-  const handleClick = (event: MouseEvent) => {
-    console.log(event);
-    //MouseEvent is the type of event parameter
-    // which is required by
-    //type script
+  // const handleClick = (event: MouseEvent) => {
+  //   console.log(event);
+  //MouseEvent is the type of event parameter
+  // which is required by
+  //type script
 
-    // it doesnot know the type of the parameter as we have created a brand new
-    // function and typeScript does not know where we are gonnna use it
+  // it doesnot know the type of the parameter as we have created a brand new
+  // function and typeScript does not know where we are gonnna use it
 
-    // event : MouseEvent is called type annotation in typeScript with type annotation we can specify the type of variables paramters and so on
+  // event : MouseEvent is called type annotation in typeScript with type annotation we can specify the type of variables paramters and so on
 
-    //with dot operator we can see all the properties associalted with the event this is the baauty of typeScript
-  };
+  //with dot operator we can see all the properties associalted with the event this is the baauty of typeScript
+  // };
 
   return (
     // <h1>dffdfdf</h1> this will throw error because in react we
@@ -44,11 +48,22 @@ function ListGroup() {
       {getMessage()}
 
       <ul className="list-group">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <li
-            className="list-group-item active"
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
             key={item}
-            onClick={handleClick}
+            // onClick={handleClick}
+            onClick={() => {
+              setSelectedIndex(index);
+
+              //this will not work we have to use a state
+              // selectedIndex = index;
+              // console.log(selectedIndex);
+            }}
           >
             {item}
           </li>
