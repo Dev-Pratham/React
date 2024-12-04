@@ -1,5 +1,7 @@
 import { Fragment, useState } from "react";
 
+//used in typescript to define the shape of the input
+//to the component
 interface Props {
   items: string[];
   heading: string;
@@ -9,6 +11,7 @@ interface Props {
 //destructuring of prop parameter can be used
 //for removing the use of props.
 function ListGroup(props: Props) {
+  //hook
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
