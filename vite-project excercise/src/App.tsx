@@ -4,17 +4,24 @@ import Button from "./components/Button";
 //learnt about typescript union operator
 //and default values of props and why destructuring is
 //necessary
+
+import Alert from "./components/Alert";
+import { useState } from "react";
 function App() {
+  const [alertVisible, setAlertVisible] = useState(false);
   return (
-    <div>
+    <>
+      {alertVisible && (
+        <Alert onClose={() => setAlertVisible(false)}>My Alert</Alert>
+      )}
       <Button
         input="Next:"
         color="success"
         onClick={() => {
-          console.log("clicked");
+          setAlertVisible(true);
         }}
       />
-    </div>
+    </>
   );
 }
 
