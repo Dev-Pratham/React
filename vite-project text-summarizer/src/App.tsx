@@ -3,7 +3,7 @@ import Summarizer from "./components/Summarizer";
 const App = () => {
   return (
     <div>
-      <Summarizer maxLength={10}>
+      <Summarizer>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum est
         voluptates voluptate, deleniti repellendus voluptatem a rem reiciendis
         laborum inventore nobis unde ullam dignissimos dolore tempore quas natus

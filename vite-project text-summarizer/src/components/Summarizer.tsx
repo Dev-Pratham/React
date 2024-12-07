@@ -7,8 +7,12 @@ interface Props {
   maxLength?: number;
 }
 
-const Summarizer = ({ children, maxLength = 100 }: Props) => {
+const Summarizer = ({ children, maxLength = 200 }: Props) => {
   const [more, setMore] = useState(false);
+
+  if (children.length <= maxLength) {
+    return <p>{children}</p>;
+  }
 
   return (
     <>
