@@ -11,6 +11,7 @@ function UpdateLogicImmerLibrary() {
   const handleClick = () => {
     setBugs(
       //this immer module is for simplifying updatre logic
+      //draft is the copy of the bugs
       produce((draft) => {
         const bug = draft.find((bug) => bug.id === 1);
         if (bug) bug.fixed = true;
