@@ -1,0 +1,15 @@
+
+
+.btn {
+    background-color: black;
+    color:white;
+    border:none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: transform 0.2s ease,box-shadow 0.2s ease;
+    }
+    
+    .btn:hover{
+        box-shadow: 1px 12px 10px rgba(0, 0, 0, 0.612);
+        transform:scale(1.02);
+    }
