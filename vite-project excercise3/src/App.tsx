@@ -1,8 +1,9 @@
-//to change the name of the player
+//to push new toppings to person state object
 //when user clicked button
 
 import { useState } from "react";
 import Button from "./Button";
+import UpdateLogicImmerLibrary from "./UpdateLogicImmerLibrary";
 function App() {
   //created a game object
   const [pizza, setPizza] = useState({
@@ -16,7 +17,11 @@ function App() {
     console.log(pizza.toppings[1]);
   };
 
-  return <Button onClick={handleClick}>Click me</Button>;
+  return (
+    <>
+      <Button onClick={handleClick}>Click me</Button>
+      <UpdateLogicImmerLibrary></UpdateLogicImmerLibrary>
+    </>
+  );
 }
-
 export default App;
