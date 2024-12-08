@@ -6,10 +6,12 @@ const Form = () => {
   //creating a reference hook object
   //can also use statehook
   const nameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+
   //creating a person object to store the name and passowrd
   const person = {
     name: "",
-    age: 0,
+    age: "",
   };
   return (
     <form
@@ -18,6 +20,9 @@ const Form = () => {
         // console.log("submitted");
         if (nameRef.current !== null) {
           person.name = nameRef.current.value;
+        }
+        if (ageRef.current !== null) {
+          person.age = ageRef.current.value;
         }
         console.log(person);
       }}
@@ -39,7 +44,13 @@ const Form = () => {
         <label htmlFor="fdata" className="form-label">
           Age
         </label>
-        <input type="number" id="fdata" name="fdata" className="form-control" />
+        <input
+          ref={ageRef}
+          type="number"
+          id="fdata"
+          name="fdata"
+          className="form-control"
+        />
       </div>
       <Button>Submit</Button>
     </form>

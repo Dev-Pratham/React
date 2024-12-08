@@ -6,12 +6,17 @@ import Button from "./components/Button";
 const Form3 = () => {
   //creating a useForm  hook
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <form
       onSubmit={handleSubmit((data) => {
         console.log(data);
+        console.log(errors);
       })}
     >
       <div className="mb-3">
