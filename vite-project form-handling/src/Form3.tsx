@@ -12,15 +12,18 @@ const Form3 = () => {
     formState: { errors },
   } = useForm();
 
+  console.log(errors);
+
   return (
     <form
+      //if there is something wrong with the validation the handleSubmit is not called
+      //in react!
       onSubmit={handleSubmit((data) => {
-        console.log(data);
-        console.log(errors);
+        console.log(data.name);
       })}
     >
       <div className="mb-3">
-        <label htmlFor="fname" className="form-label">
+        <label htmlFor="name" className="form-label">
           Name
         </label>
 
@@ -28,13 +31,18 @@ const Form3 = () => {
           //   onChange={(event) => {
           //     setPerson({ ...person, name: event.target.value });
           //   }}
-          {...register("name")}
-          id="fname"
+          {...register("name", { required: true, minLength: 3 })}
+          id="name"
           type="text"
-          name="fname"
-          className="form-control"
+          className="form-control "
           //   value={person.name}
         />
+        {errors.name?.type === "required" && (
+          <p className="text-danger">Name Field is Required</p>
+        )}
+        {errors.name?.type === "minLength" && (
+          <p className="text-warning">Name Must Be atleast 3 characters</p>
+        )}
       </div>
       <div className="mb-3">
         <label htmlFor="fage" className="form-label">
@@ -47,7 +55,6 @@ const Form3 = () => {
           {...register("age")}
           id="fage"
           type="number"
-          name="fage"
           //   value={person.age}
           className="form-control"
         />
