@@ -4,11 +4,17 @@ interface Props {
   children: string;
   type?: "submit" | "button" | "reset" | undefined;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-const Button = ({ children, type = "submit", onClick }: Props) => {
+const Button = ({ children, type = "submit", onClick, disabled }: Props) => {
   return (
-    <button className={styles.btn} onClick={onClick} type={type}>
+    <button
+      className={styles.btn}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

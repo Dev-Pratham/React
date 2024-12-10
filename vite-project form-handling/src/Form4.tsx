@@ -24,7 +24,7 @@ const Form4 = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   console.log(errors);
@@ -83,7 +83,7 @@ const Form4 = () => {
         <p className="text-danger">{errors.age.message}</p>
         //zod will take care of message based on schema defined
       )}
-      <Button>Submit</Button>
+      <Button disabled={!isValid}>Submit</Button>
     </form>
   );
 };
