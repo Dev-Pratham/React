@@ -7,7 +7,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const Button = ({ children, type = "submit", onClick, disabled }: Props) => {
+const Button = ({ children, type, onClick, disabled }: Props) => {
   return (
     <button
       className={styles.btn}

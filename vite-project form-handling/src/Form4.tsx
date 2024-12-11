@@ -83,7 +83,9 @@ const Form4 = () => {
         <p className="text-danger">{errors.age.message}</p>
         //zod will take care of message based on schema defined
       )}
-      <Button disabled={!isValid}>Submit</Button>
+      <Button type="submit" disabled={!isValid}>
+        Submit
+      </Button>
     </form>
   );
 };

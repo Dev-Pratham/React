@@ -47,7 +47,7 @@ const Form2 = () => {
           className="form-control"
         />
       </div>
-      <Button>Submit</Button>
+      <Button type="submit">Submit</Button>
     </form>
   );
 };
