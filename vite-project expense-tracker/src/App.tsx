@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface FormData {
@@ -18,17 +19,23 @@ const App = () => {
     },
   });
 
+  ///
+  const arr = [];
+  const [initialIndex, setSelectedIndex] = useState(-1);
+
+  const handleClick = () => {
+    handleSubmit((data) => {
+      console.log(data);
+      arr.push(data);
+      reset();
+    });
+  };
+
   console.log(errors);
 
   return (
     <>
-      <form
-        className="mb-4"
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-          reset();
-        })}
-      >
+      <form className="mb-4" onSubmit={handleClick}>
         <div className="mb-3">
           <label htmlFor="desc" className="form-label">
             Description
@@ -51,13 +58,16 @@ const App = () => {
             Amount
           </label>
           <input
-            {...register("amount", { required: true })}
+            {...register("amount", { required: true, min: 0 })}
             type="number"
             className="form-control"
             id="amt"
           />
           {errors.amount?.type === "required" && (
-            <p className="text-danger">Age is required</p>
+            <p className="text-danger">Amount is required</p>
+          )}
+          {errors.amount?.type === "min" && (
+            <p className="text-danger">Amount cannot be negative</p>
           )}
         </div>
 
