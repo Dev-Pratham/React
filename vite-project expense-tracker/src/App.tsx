@@ -1,35 +1,76 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <form className="mb-4">
+        <div className="mb-3">
+          <label htmlFor="desc" className="form-label">
+            Description
+          </label>
+          <input type="text" className="form-control" id="desc" />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="amt" className="form-label">
+            Amount
+          </label>
+          <input type="number" className="form-control" id="amt" />
+        </div>
 
-export default App
+        <div className="mb-3">
+          <label htmlFor="category" className="form-label">
+            Category
+          </label>
+          <select
+            id="category"
+            className="form-select"
+            aria-label="Default select example"
+          >
+            <option>Groceries`</option>
+            <option>Entertainment</option>
+            <option>Utilities</option>
+          </select>
+        </div>
+
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+
+      <div className="mb-3">
+        <label htmlFor="allCategory" className="form-label">
+          All Category
+        </label>
+        <select className="form-select" aria-label="Default select example">
+          <option selected>All Categories</option>
+          <option>Groceries`</option>
+          <option>Entertainment</option>
+          <option>Utilities</option>
+        </select>
+      </div>
+
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Decsription</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Category</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Milk</th>
+            <td>$5.00</td>
+            <td>Grocery</td>
+            <td>
+              <button type="button" className="btn btn-outline-danger">
+                Danger
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  );
+};
+
+export default App;
