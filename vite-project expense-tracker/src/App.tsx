@@ -15,27 +15,36 @@ const App = () => {
     reset,
   } = useForm<FormData>({
     defaultValues: {
-      category: "", //default value
+      category: "", // default value
     },
   });
 
-  ///
-  const arr = [];
-  const [initialIndex, setSelectedIndex] = useState(-1);
+  // State to store form data and filter category
+  const [entries, setEntries] = useState<FormData[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
-  const handleClick = () => {
-    handleSubmit((data) => {
-      console.log(data);
-      arr.push(data);
-      reset();
-    });
+  // Add entry to the state
+  const handleClick = (data: FormData) => {
+    setEntries((prevEntrie) => [...prevEntrie, data]);
+    reset(); // Reset the form
   };
 
-  console.log(errors);
+  // Delete entry from the state
+  const deleteEntry = (index: number) => {
+    setEntries((prevEntries) =>
+      prevEntries.filter((entries, i) => i !== index)
+    );
+  };
+
+  // Filter entries based on the selected category
+  const filteredEntries =
+    selectedCategory && selectedCategory !== "All Categories"
+      ? entries.filter((entry) => entry.category === selectedCategory)
+      : entries;
 
   return (
     <>
-      <form className="mb-4" onSubmit={handleClick}>
+      <form className="mb-4" onSubmit={handleSubmit(handleClick)}>
         <div className="mb-3">
           <label htmlFor="desc" className="form-label">
             Description
@@ -50,7 +59,7 @@ const App = () => {
             <p className="text-danger">Description is required</p>
           )}
           {errors.description?.type === "minLength" && (
-            <p className="text-warning">Should Be at;east 3 characters</p>
+            <p className="text-warning">Should be at least 3 characters</p>
           )}
         </div>
         <div className="mb-3">
@@ -81,8 +90,8 @@ const App = () => {
             className="form-select"
             aria-label="Default select example"
           >
-            <option disabled>✔️</option>
-            <option>Groceries`</option>
+            <option disabled>Select Category</option>
+            <option>Groceries</option>
             <option>Entertainment</option>
             <option>Utilities</option>
           </select>
@@ -96,44 +105,56 @@ const App = () => {
         </button>
       </form>
 
-      <div className="mb-3">
-        <label htmlFor="allCategory" className="form-label">
-          All Category
-        </label>
-        <select
-          id="allCategory"
-          className="form-select"
-          aria-label="Default select example"
-        >
-          <option>All Categories</option>
-          <option>Groceries`</option>
-          <option>Entertainment</option>
-          <option>Utilities</option>
-        </select>
-      </div>
+      {/* Category Filter */}
+      {entries.length !== 0 && (
+        <div className="mb-3">
+          <label htmlFor="categoryFilter" className="form-label">
+            Filter by Category
+          </label>
+          <select
+            id="categoryFilter"
+            className="form-select"
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option>All Categories</option>
+            <option>Groceries</option>
+            <option>Entertainment</option>
+            <option>Utilities</option>
+          </select>
+        </div>
+      )}
 
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Decsription</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Category</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Milk</th>
-            <td>$5.00</td>
-            <td>Grocery</td>
-            <td>
-              <button type="button" className="btn btn-outline-danger">
-                Danger
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      {/* Table */}
+      {entries.length !== 0 && (
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Description</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Category</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredEntries.map((entry, index) => (
+              <tr key={index}>
+                <td>{entry.description}</td>
+                <td>{entry.amount}</td>
+                <td>{entry.category}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger"
+                    onClick={() => deleteEntry(index)} // Call deleteEntry with the index
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </>
   );
 };
