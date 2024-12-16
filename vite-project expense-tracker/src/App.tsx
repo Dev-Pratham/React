@@ -31,8 +31,8 @@ const App = () => {
 
   // Delete entry from the state
   const deleteEntry = (index: number) => {
-    setEntries((prevEntries) =>
-      prevEntries.filter((entries, i) => i !== index)
+    setEntries(
+      (prevEntries) => prevEntries.filter((entries, i) => i !== index) //if you remove entries you cannot access prevelement entries
     );
   };
 

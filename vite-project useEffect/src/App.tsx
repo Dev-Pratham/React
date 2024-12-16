@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ProductList from "./ProductList";
+import Axios from "./Axios";
 const App = () => {
   const [category, setCategory] = useState("");
 
@@ -15,6 +16,8 @@ const App = () => {
         <option value="OtherChores">OtherChores</option>
       </select>
       <ProductList category={category}></ProductList>
+
+      <Axios></Axios>
     </div>
   );
 };
