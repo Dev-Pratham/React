@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProductList from "./ProductList";
 import Axios from "./Axios";
+// import Axios2 from "./Axios2";
 const App = () => {
   const [category, setCategory] = useState("");
 
@@ -18,6 +19,7 @@ const App = () => {
       <ProductList category={category}></ProductList>
 
       <Axios></Axios>
+      {/* <Axios2></Axios2> */}
     </div>
   );
 };
