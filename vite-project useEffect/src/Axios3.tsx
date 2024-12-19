@@ -1,6 +1,6 @@
 //extracting the user service
 //connecting with backend mosh
-import apiClient from "./services/apiClient";
+
 import { CanceledError } from "./services/apiClient";
 
 import { useEffect, useState } from "react";
@@ -37,13 +37,11 @@ const Axios3 = () => {
     const originalUsers = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
     // updating server
-    apiClient
-      //ADDED FORWAD SLASH AT THE URL END IN DELETE REQUEST
-      .delete("/users/" + user.id)
-      .catch((err) => {
-        setErrors(err);
-        setUsers(originalUsers);
-      });
+    const { request } = userService.deleteUsers(user);
+    request.catch((err) => {
+      setErrors(err);
+      setUsers(originalUsers);
+    });
   };
 
   const addUser = () => {
@@ -53,8 +51,8 @@ const Axios3 = () => {
     //ui update
     setUsers([...users, newUser]);
     //serverUpdate
-    apiClient
-      .post("/users", newUser)
+    const { request } = userService.addUser(newUser);
+    request
       .then((res) => setUsers([...users, res.data]))
       .catch((err) => {
         setErrors(err.message);
@@ -68,7 +66,8 @@ const Axios3 = () => {
     const modUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? modUser : u)));
     //reflecting changes in the server
-    apiClient.patch("/users/" + user.id, modUser).catch((err) => {
+    const { request } = userService.modifyUser(user, modUser);
+    request.catch((err) => {
       setErrors(err.message);
       setUsers(origonalUsers);
     });
