@@ -67,6 +67,21 @@ This prevents Axios from trying to update state after the component is unmounted
         setUsers(originalUsers);
       });
   };
+
+  const modifyUser = (user: Users) => {
+    //updating ui
+    const origonalUsers = [...users];
+    const modUser = { ...user, name: user.name + "!" };
+    setUsers(users.map((u) => (u.id === user.id ? modUser : u)));
+    //reflecting changes in the server
+    axios
+      .patch("https://jsonplaceholder.typicode.com/users/" + user.id, modUser)
+      .catch((err) => {
+        setErrors(err.message);
+        setUsers(origonalUsers);
+      });
+  };
+
   return (
     <>
       {errors && <p className="text-danger">{errors}</p>}
@@ -81,12 +96,20 @@ This prevents Axios from trying to update state after the component is unmounted
             key={user.id}
           >
             {user.name}
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => deleteUser(user)}
-            >
-              Delete
-            </button>
+            <div>
+              <button
+                className="btn btn-outline-danger mx-3"
+                onClick={() => deleteUser(user)}
+              >
+                Delete
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => modifyUser(user)}
+              >
+                Modify
+              </button>
+            </div>
           </li>
         ))}
       </ul>
