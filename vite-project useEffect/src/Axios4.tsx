@@ -1,12 +1,12 @@
 //extracting the user service
 //connecting with backend mosh
-//checkout Axios 4 first
+
 import { CanceledError } from "./services/apiClient";
 
 import { useEffect, useState } from "react";
-import userService, { Users } from "./services/userService";
+import userService, { Users } from "./services/userService2";
 
-const Axios3 = () => {
+const Axios4 = () => {
   const [users, setUsers] = useState<Users[]>([]);
   const [errors, setErrors] = useState("");
 
@@ -14,7 +14,7 @@ const Axios3 = () => {
   useEffect(() => {
     setIsLoading(true);
 
-    const { request, cancel } = userService.getAll<Users>();
+    const { request, cancel } = userService.getAllUsers();
     request
       .then((res) => {
         console.log(res);
@@ -37,7 +37,7 @@ const Axios3 = () => {
     const originalUsers = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
     // updating server
-    const { request } = userService.delete(user);
+    const { request } = userService.deleteUsers(user);
     request.catch((err) => {
       setErrors(err);
       setUsers(originalUsers);
@@ -51,7 +51,7 @@ const Axios3 = () => {
     //ui update
     setUsers([...users, newUser]);
     //serverUpdate
-    const { request } = userService.add(newUser);
+    const { request } = userService.addUser(newUser);
     request
       .then((res) => setUsers([...users, res.data]))
       .catch((err) => {
@@ -66,7 +66,7 @@ const Axios3 = () => {
     const modUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? modUser : u)));
     //reflecting changes in the server
-    const { request } = userService.modify(modUser);
+    const { request } = userService.modifyUser(user, modUser);
     request.catch((err) => {
       setErrors(err.message);
       setUsers(origonalUsers);
@@ -108,4 +108,4 @@ const Axios3 = () => {
   );
 };
 
-export default Axios3;
+export default Axios4;
